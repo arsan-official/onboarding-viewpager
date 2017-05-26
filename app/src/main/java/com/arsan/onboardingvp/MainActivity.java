@@ -34,12 +34,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private ViewPager mViewPager;
     private ImageView[] indicators;
-    private int[] bgColors;
+    private int[] colorList;
     private ArgbEvaluator evaluator;
 
     private Button btnSkip;
     private Button btnFinish;
     private ImageButton btnNext;
+    private int page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 (ImageView) findViewById(R.id.footer_control_indicator_2),
                 (ImageView) findViewById(R.id.footer_control_indicator_3)};
 
-        bgColors = new int[]{
+        colorList = new int[]{
                 Color.parseColor("#FFC107"),
                 Color.parseColor("#3F51B5"),
                 Color.parseColor("#8BC34A")};
@@ -67,30 +68,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setBackgroundColor(bgColors[0]);
+        mViewPager.setBackgroundColor(colorList[0]);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 int colorUpdate = (Integer) evaluator.evaluate(positionOffset,
-                        bgColors[position], position == bgColors.length-1 ?bgColors[position] : bgColors[position+1]);
+                        colorList[position], position == colorList.length-1 ? colorList[position] : colorList[position+1]);
                 mViewPager.setBackgroundColor(colorUpdate);
             }
 
             @Override
             public void onPageSelected(int position) {
                 // update indicator
+                page = position;
                 updateIndicator(position);
-                mViewPager.setBackgroundColor(bgColors[position]);
+                mViewPager.setBackgroundColor(colorList[position]);
 
-                if(position == 2){
-                    btnSkip.setVisibility(View.INVISIBLE);
-                    btnFinish.setVisibility(View.VISIBLE);
-                    btnNext.setVisibility(View.GONE);
-                }else{
-                    btnSkip.setVisibility(View.VISIBLE);
-                    btnFinish.setVisibility(View.GONE);
-                    btnNext.setVisibility(View.VISIBLE);
-                }
+
+                btnSkip.setVisibility(position == 2? View.INVISIBLE: View.VISIBLE);
+                btnNext.setVisibility(position == 2? View.GONE : View.VISIBLE);
+                btnFinish.setVisibility(position == 2 ? View.VISIBLE : View.GONE);
+
             }
 
             @Override
@@ -98,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        btnNext.setOnClickListener(this);
     }
 
     private void updateIndicator(int position){
@@ -133,7 +133,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        
+        switch (v.getId()) {
+            case R.id.footer_control_button_next:
+                page++;
+                mViewPager.setCurrentItem(page, true);
+                break;
+        }
+
     }
 
     /**
