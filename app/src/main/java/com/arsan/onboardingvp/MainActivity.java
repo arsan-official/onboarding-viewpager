@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,10 +37,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int[] bgColors;
     private ArgbEvaluator evaluator;
 
+    private Button btnSkip;
+    private Button btnFinish;
+    private ImageButton btnNext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnSkip = (Button) findViewById(R.id.footer_control_button_skip);
+        btnFinish = (Button) findViewById(R.id.footer_control_button_finish);
+        btnNext = (ImageButton) findViewById(R.id.footer_control_button_next);
+
         indicators = new ImageView[]{
                 (ImageView) findViewById(R.id.footer_control_indicator_1),
                 (ImageView) findViewById(R.id.footer_control_indicator_2),
@@ -70,6 +81,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // update indicator
                 updateIndicator(position);
                 mViewPager.setBackgroundColor(bgColors[position]);
+
+                if(position == 2){
+                    btnSkip.setVisibility(View.INVISIBLE);
+                    btnFinish.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.GONE);
+                }else{
+                    btnSkip.setVisibility(View.VISIBLE);
+                    btnFinish.setVisibility(View.GONE);
+                    btnNext.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
