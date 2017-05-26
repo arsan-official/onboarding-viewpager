@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_gravity="bottom"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
+
+    <Button
+        android:id="@+id/footer_control_button_skip"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="SKIP"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:id="@+id/footer_control_group_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <ImageView
+            android:id="@+id/footer_control_indicator_1"
+            android:layout_width="@dimen/indicator_size"
+            android:layout_height="@dimen/indicator_size"
+            android:src="@drawable/indicator_selected" />
+
+        <ImageView
+            android:id="@+id/footer_control_indicator_2"
+            android:layout_width="@dimen/indicator_size"
+            android:layout_height="@dimen/indicator_size"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/indicator_unselected" />
+
+        <ImageView
+            android:id="@+id/footer_control_indicator_3"
+            android:layout_width="@dimen/indicator_size"
+            android:layout_height="@dimen/indicator_size"
+            android:src="@drawable/indicator_unselected" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/footer_control_button_finish"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="center_vertical"
+        android:text="FINISH"
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/footer_control_button_next"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_chevron_right" />
+
+</FrameLayout>
